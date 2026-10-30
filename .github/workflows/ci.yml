@@ -1,0 +1,2 @@
+- name: SMT Z3 Formal Audit (19 Layers - Hysteresis)
+  run: python scripts/z3_audit_hysteresis.py
