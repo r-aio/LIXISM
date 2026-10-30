@@ -1,0 +1,45 @@
+name: LIXISM-Core Continuous Formal Verification CI
+
+on:
+  push:
+    branches: [ main, master, develop ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  formal-verification:
+    name: SMT Z3 Formal Audit (19 Layers)
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Source Code
+        uses: actions/checkout@v3
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Execute LIXISM Formal State-Space Verifier
+        run: |
+          python3 verification/lixism_formal_verifier.py
+
+  build-c99-rtos:
+    name: C99 Zero-Heap RTOS Compilation Check
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Source Code
+        uses: actions/checkout@v3
+
+      - name: Install C99 Compiler
+        run: sudo apt-get update && sudo apt-get install -y gcc cmake
+
+      - name: Configure CMake Build
+        run: cmake -B build -S .
+
+      - name: Compile LIXISM Engine Executable
+        run: cmake --build build
+
+      - name: Run LIXISM Simulation Test
+        run: ./build/lixism_simulation
