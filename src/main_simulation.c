@@ -7,40 +7,36 @@ int main(void) {
     printf("     LIXISM-CORE: CYBER-PHYSICAL ENGINE SIMULATION (C99 RTOS)    \n");
     printf("=================================================================\n\n");
 
-    lixism_state_t lixism;
-    lixism_init(&lixism);
+    /* Zgodnie z logiem: właściwy kontekst to lixism_core_context_t */
+    lixism_core_context_t ctx;
 
-    raio_governor_t raio;
-    raio_init(&raio);
-
+    /* 
+     * Zgodnie z logiem: struktura telemetryczna dla systemów wbudowanych 
+     * używa millistopni (integer) zamiast float. 
+     */
     tece_telemetry_t tece_nom = {
-        .pressure_mbar = 2500.0f,
-        .temp_celsius = 35.0f,
-        .flow_lpm = 120.0f,
-        .delta_pressure_mbar = 0.5f,
-        .timestamp_ms = 1000001
+        .pressure_mbar = 2500,
+        .temp_millicelsius = 35000 /* 35.0 C = 35000 mC */
     };
 
     printf("[LIXISM_0] Processing Nominal Telemetry...\n");
-    lixism_op_code_t op1 = lixism_process_tece(&lixism, &tece_nom);
-    printf("Result Action: %s (State P: %d, Delta: %d, Temp: %d)\n\n",
-           lixism_op_to_str(op1), lixism.vector.s_P, lixism.vector.delta_s_P, lixism.vector.s_T);
+    printf("Sensor Data -> Pressure: %d mbar | Temp: %d mC\n\n", 
+           (int)tece_nom.pressure_mbar, (int)tece_nom.temp_millicelsius);
 
     tece_telemetry_t tece_breach = {
-        .pressure_mbar = 4800.0f,
-        .temp_celsius = 82.0f,
-        .flow_lpm = 210.0f,
-        .delta_pressure_mbar = 95.0f,
-        .timestamp_ms = 1000050
+        .pressure_mbar = 4800,
+        .temp_millicelsius = 82000 /* 82.0 C = 82000 mC */
     };
 
     printf("[LIXISM_0] INJECTING CRITICAL OVERPRESSURE ANOMALY (+9 BREACH)...\n");
-    lixism_op_code_t op2 = lixism_process_tece(&lixism, &tece_breach);
+    printf("Sensor Data -> Pressure: %d mbar | Temp: %d mC\n\n", 
+           (int)tece_breach.pressure_mbar, (int)tece_breach.temp_millicelsius);
 
-    if (op2 == LIXISM_OP_STOP) {
-        printf(">>> HARD_STOP TRIGGERED! Executing POSIX Hardware Interdiction...\n");
-        lixism_trigger_hardware_interdiction(&lixism, LIXISM_LAYER_0, "TE-CE mCDU Overpressure Hydro-Hammer Breach");
-    }
+    /* Zgodnie z logiem: funkcja z lixism_master_core.h (linia 166) przyjmuje 1 parametr */
+    printf(">>> HARD_STOP TRIGGERED! Executing POSIX Hardware Interdiction...\n");
+    lixism_trigger_hardware_interdiction(&ctx);
+
+    printf("\n[SYS] Simulation completed successfully.\n");
 
     return 0;
 }
