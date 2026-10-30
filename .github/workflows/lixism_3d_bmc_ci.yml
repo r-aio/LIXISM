@@ -25,7 +25,7 @@ jobs:
           python-version: ${{ matrix.python-version }}
 
       - name: Make Script Executable
-        run: chmod +x lixism_3d_bmc_verifier.py
+        run: chmod +x verification/lixism_3d_bmc_verifier.py
 
       - name: Execute 3D Spherical BMC Verifier
-        run: python lixism_3d_bmc_verifier.py --radius 9 --verbose
+        run: python verification/lixism_3d_bmc_verifier.py --radius 9 --verbose
