@@ -1,2 +1,43 @@
-- name: SMT Z3 Formal Audit (19 Layers - Hysteresis)
-  run: python scripts/z3_audit_hysteresis.py
+mkdir -p .github/workflows
+
+cat << 'EOF' > .github/workflows/ci.yml
+name: LIXISM-Core Continuous Formal Verification CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  audit_and_test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.x'
+
+    - name: Install Z3 Solver
+      run: pip install z3-solver
+
+    - name: SMT Z3 Formal Audit (19 Layers - Hysteresis)
+      run: python scripts/z3_audit_hysteresis.py
+
+    - name: Configure CMake
+      run: cmake -S . -B build
+
+    - name: Build C99 Zero-Heap RTOS Simulation
+      run: cmake --build build
+
+    - name: Run POSIX Hardware Interdiction Check
+      run: ./build/lixism_simulation
+EOF
+
+git add .github/workflows/ci.yml
+git commit -m "fix: correct YAML syntax in ci.yml and integrate Z3 hysteresis audit"
+git push origin main
