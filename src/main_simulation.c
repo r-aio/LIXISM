@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "lixism\_master\_core.h" //
+#include "lixism_master_core.h" //
 
 int main(void) {
     printf("=================================================================\n");
