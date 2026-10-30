@@ -1,6 +1,6 @@
-cat << 'EOF' > src/main_simulation.c
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include <sys/types.h>
 #include <sys/wait.h>
 #include <unistd.h>
@@ -48,6 +48,10 @@ int main(void) {
     printf("--- PHASE 2: BOUNDARY BREACH INTERDICTION TEST (+9 BREACH) ---\n");
     pid_t pid = fork();
     if (pid == 0) {
+        /* PROCES POTOMNY: Inicjalizacja prawidłowego kontekstu dla sprzętowej interdykcji */
+        lixism_core_context_t ctx;
+        memset(&ctx, 0, sizeof(lixism_core_context_t));
+
         tece_telemetry_t tece_breach = {
             .pressure_mbar = 4800,
             .temp_millicelsius = 82000
@@ -58,10 +62,12 @@ int main(void) {
 
         if (op == LIXISM_OP_STOP) {
             printf(">>> HARD_STOP TRIGGERED! Executing POSIX Hardware Interdiction...\n");
-            lixism_trigger_hardware_interdiction(&lixism);
+            /* Wywołanie interdykcji z poprawnym typem (lixism_core_context_t) */
+            lixism_trigger_hardware_interdiction(&ctx);
         }
         exit(0);
     } else {
+        /* PROCES NADRZĘDNY: Weryfikacja sygnału SIGKILL */
         int status;
         waitpid(pid, &status, 0);
         if (WIFSIGNALED(status) && WTERMSIG(status) == SIGKILL) {
@@ -74,8 +80,3 @@ int main(void) {
         }
     }
 }
-EOF
-
-git add src/main_simulation.c
-git commit -m "test: implement 19-state full continuum sequential verification in C99"
-git push origin main
