@@ -1,5 +1,5 @@
 cat << 'EOF' > README.md
-# LIXISM: Layer IX Invariant State Matrix
+# LIXISM: Layer Invariant State Matrix
 
 **Data Physics Framework & Deterministic Cyber-Physical Control Architecture**  
 *Formal O(1) State-Space Bounding for Edge AI, mCDU OT Infrastructure, and High-Density Datacenters.*
