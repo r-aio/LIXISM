@@ -1,5 +1,5 @@
 cat << 'EOF' > README.md
-# LIXISM: Layer IX Invariant State Matrix
+# LIXISM/LIXIM: Layer IX Invariant State Matrix
 
 **Data Physics Framework & Deterministic Cyber-Physical Control Architecture**  
 *Formal O(1) State-Space Bounding for Edge AI, mCDU OT Infrastructure, and High-Density Datacenters.*
@@ -8,7 +8,7 @@ cat << 'EOF' > README.md
 
 ## Integrated 19-Layer Architecture (19L)
 
-LIXISM enforces a strictly bounded 19-state lattice $\mathcal{S} \in \{L_{-9}, \dots, \mathbf{L_0}, \dots, L_{+9}\}$ establishing a continuous execution ladder centered around the absolute **Fulcrum ($L_0$)**:
+LIXISM/LIXIM enforces a strictly bounded 19-state lattice $\mathcal{S} \in \{L_{-9}, \dots, \mathbf{L_0}, \dots, L_{+9}\}$ establishing a continuous execution ladder centered around the absolute **Fulcrum ($L_0$)**:
 
 | Layer | Domain & Scope | Interdiction / Verification Mechanism |
 | :--- | :--- | :--- |
@@ -50,10 +50,10 @@ This ensures zero-latency protection against hydro-hammer events in liquid-coole
 
 ## Licensing Tri-Barrier
 
-1. **LIXISM-OHS** (CERN OHL-S v2): Protects silicon, physical layouts, FPGA, and mCDU manifolds[span_19](start_span)[span_19](end_span).
-2. **LIXISM-CSE** (GNU AGPLv3): Protects the logic heart (Z3 solvers, C99 governors). Backend cloud verifiers must open-source[span_20](start_span)[span_20](end_span).
-3. **LIXISM-API** (Apache License 2.0): Diplomatic bridge for 3rd-party SCADA and tools to integrate seamlessly[span_21](start_span)[span_21](end_span).
-4. **LIXISM-SPA** (CC BY-NC-ND 4.0): Strict Prior Art protection for academic monographs and physical truth integrity[span_22](start_span)[span_22](end_span).
+1. **LIXISM/LIXIM-OHS** (CERN OHL-S v2): Protects silicon, physical layouts, FPGA, and mCDU manifolds[span_19](start_span)[span_19](end_span).
+2. **LIXISM/LIXIM-CSE** (GNU AGPLv3): Protects the logic heart (Z3 solvers, C99 governors). Backend cloud verifiers must open-source[span_20](start_span)[span_20](end_span).
+3. **LIXISM/LIXIM-API** (Apache License 2.0): Diplomatic bridge for 3rd-party SCADA and tools to integrate seamlessly[span_21](start_span)[span_21](end_span).
+4. **LIXISM/LIXIM-SPA** (CC BY-NC-ND 4.0): Strict Prior Art protection for academic monographs and physical truth integrity[span_22](start_span)[span_22](end_span).
 
 ---
 
